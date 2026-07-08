@@ -155,7 +155,7 @@
                                     <span class="text-5xl bg-white p-3 rounded-2xl border-2 border-amber-300 shadow-sm">🏋️‍♀️</span>
                                     <div>
                                         <h3 class="text-2xl font-black text-amber-900">2. 체력단련실 기구 맞춤 처방</h3>
-                                        <p class="text-base text-stone-400 mt-1 leading-tight">내가 쓸 기구를 고르고, 타이머와 함께 나만의 버닝 세트를 확인해!</p>
+                                        <p class="text-base text-stone-400 mt-1 leading-tight">내가 쓸 기구를 고르고, 나만의 맞춤형 버닝 세트를 확인해!</p>
                                     </div>
                                 </div>
                             </button>
@@ -226,7 +226,7 @@
                     </div>
                 </div>
 
-                <!-- ================= PAGE 5: 식사 후 식판 사진 업로드 (잔반 인식) ================= -->
+                <!-- ================= PAGE 5: 식사 후 식판 사진 업로드 (피드백 버그 완전 해결) ================= -->
                 <div id="page-meal-after" class="page flex flex-col justify-between h-full flex-grow">
                     <div>
                         <h2 class="text-2xl font-black text-ewha-deep mb-2">🧼 다 비운 식판 도장 받기</h2>
@@ -256,7 +256,7 @@
                     </div>
                 </div>
 
-                <!-- ================= PAGE 6: 맞춤형 운동 추천 (기구 선택 + 타이머) ================= -->
+                <!-- ================= PAGE 6: 맞춤형 운동 추천 (기구 선택) ================= -->
                 <div id="page-exercise" class="page flex flex-col justify-between h-full flex-grow">
                     <div>
                         <h2 class="text-2xl font-black text-ewha-deep mb-2">🏋️‍♀️ 기구 맞춤형 운동 루틴 짜기</h2>
@@ -287,21 +287,52 @@
                                     <span class="font-black text-xl text-stone-700">🚣‍♀️ 로잉머신</span>
                                 </label>
                             </div>
-                            <button onclick="generateRoutine()" class="w-full bg-amber-200 text-amber-900 font-black py-3.5 rounded-2xl border-3 border-amber-400 mt-5 text-2xl shadow-md hover:bg-amber-300 transition">선택한 기구들로 루틴 & 타이머 생성 🪄</button>
+                            <button onclick="generateRoutine()" class="w-full bg-amber-200 text-amber-900 font-black py-3.5 rounded-2xl border-3 border-amber-400 mt-5 text-2xl shadow-md hover:bg-amber-300 transition">선택한 기구들로 루틴 생성 🪄</button>
                         </div>
 
-                        <!-- 2단계: 결과 및 타이머 영역 -->
+                        <!-- 2단계: 결과 영역 -->
                         <div id="exercise-result-area" class="hidden">
                             <div class="flex justify-between items-end mb-3 border-b-2 border-dashed border-stone-200 pb-2">
-                                <p class="text-lg text-emerald-700 font-black">✨ 짜잔! 너만을 위한 타이머 루틴이야!</p>
+                                <p class="text-lg text-emerald-700 font-black">✨ 짜잔! 너만을 위한 맞춤 루틴이야!</p>
                                 <button onclick="resetExerciseSelection()" class="text-sm text-stone-400 hover:text-stone-700 font-bold underline">기구 다시 고르기 🔄</button>
                             </div>
-                            <div id="dynamic-exercise-list" class="space-y-4 max-h-[340px] overflow-y-auto pr-2 pb-2"></div>
+                            <div id="dynamic-exercise-list" class="space-y-4 max-h-[300px] overflow-y-auto pr-2 pb-2"></div>
                         </div>
 
                     </div>
 
                     <button onclick="navigate('page-main-menu')" class="w-full bg-ewha-deep text-white font-black py-4 rounded-2xl border-3 border-stone-800 mt-5 text-xl shadow-md hover:opacity-90 transition">메인 화면으로 돌아가기 📖</button>
+                </div>
+
+                <!-- ================= PAGE 7: 아날로그 시계 타이머 창 (새로운 화면) ================= -->
+                <div id="page-timer" class="page flex flex-col justify-between h-full flex-grow">
+                    <div class="text-center mt-6">
+                        <h2 class="text-3xl font-black text-ewha-deep mb-2" id="timer-title">운동 이름</h2>
+                        <p class="text-lg text-stone-400 mb-8" id="timer-subtitle">목표 시간: 00분</p>
+
+                        <!-- 아날로그 시계 UI -->
+                        <div class="relative w-56 h-56 rounded-full border-8 border-emerald-400 mx-auto bg-stone-50 shadow-inner flex items-center justify-center mb-8">
+                            <!-- 시계 숫자 마커 -->
+                            <span class="absolute top-2 font-black text-stone-300 text-xl">12</span>
+                            <span class="absolute right-3 font-black text-stone-300 text-xl">3</span>
+                            <span class="absolute bottom-2 font-black text-stone-300 text-xl">6</span>
+                            <span class="absolute left-3 font-black text-stone-300 text-xl">9</span>
+
+                            <!-- 시계 중앙 핀 -->
+                            <div class="absolute w-4 h-4 bg-stone-700 rounded-full z-20"></div>
+                            
+                            <!-- 분침 -->
+                            <div id="hand-minute" class="absolute w-1.5 h-20 bg-emerald-800 rounded-full bottom-1/2 origin-bottom transform rotate-0 z-10 transition-transform duration-300"></div>
+                            <!-- 초침 -->
+                            <div id="hand-second" class="absolute w-1 h-24 bg-amber-500 rounded-full bottom-1/2 origin-bottom transform rotate-0 z-10 transition-transform duration-75"></div>
+                        </div>
+
+                        <!-- 디지털 시간 표시 -->
+                        <div class="text-5xl font-black text-emerald-700 tracking-widest mb-6" id="timer-digital">00:00</div>
+                    </div>
+
+                    <!-- 언제든지 완료하고 돌아갈 수 있는 버튼 -->
+                    <button onclick="finishTimerPage()" class="w-full bg-stone-200 text-stone-800 font-black py-4 rounded-2xl border-3 border-stone-400 text-2xl shadow-md hover:bg-stone-300 transition">✅ 운동 완료하고 돌아가기</button>
                 </div>
             </div>
 
@@ -327,7 +358,7 @@
                 </div>
                 
                 <div class="mt-4 pt-3 border-t-2 border-dashed border-stone-200 text-center">
-                    <p class="text-[11px] font-bold text-stone-300">슬기로운 이화 생활 서비스 프로토타입 v7.0 (Timer)</p>
+                    <p class="text-[11px] font-bold text-stone-300">슬기로운 이화 생활 서비스 프로토타입 v8.0 (Analog Timer)</p>
                 </div>
             </div>
 
@@ -348,13 +379,11 @@
             currentCalories: 0
         };
 
-        // 네비게이션 제어
         function navigate(pageId) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
         }
 
-        // 회원가입
         function completeSignup() {
             const signupId = document.getElementById('signup-id').value.trim();
             const signupPw = document.getElementById('signup-pw').value.trim();
@@ -371,7 +400,6 @@
             navigate('page-login');
         }
 
-        // 로그인
         function handleRealLogin() {
             const inputId = document.getElementById('login-id').value.trim();
             const inputPw = document.getElementById('login-pw').value.trim();
@@ -493,12 +521,13 @@
                         finalCalories = Math.floor(baseCal * 0.6); 
                         leftoverText = "⚠️ 잔반 감지됨 (약 40% 남김)";
                         leftoverFeedback = "앗, 식판에 음식이 꽤 남아있네! 🥲 배가 불렀구나. 다음부터는 배식받을 때 이모님께 미리 양을 적게 달라고 요청해서 지구 환경을 함께 지켜보자!";
-                        document.getElementById('result-after').className = "hidden bg-amber-50 border-3 border-amber-300 rounded-2xl p-5 space-y-3 relative shadow-md";
+                        // 피드백 박스 버그 수정 (className 에 hidden 넣지 않기)
+                        document.getElementById('result-after').className = "bg-amber-50 border-3 border-amber-300 rounded-2xl p-5 space-y-3 relative shadow-md";
                     } else {
                         finalCalories = baseCal;
                         leftoverText = "✨ 잔반 0g (클린 식판)";
                         leftoverFeedback = "식판에 남은 잔반이 전혀 없어! 지구를 지키고 우리 학교 급식 잔반 줄이기 챌린지에 완벽하게 성공했어! 이화의 자랑이야 👑";
-                        document.getElementById('result-after').className = "hidden bg-emerald-50 border-3 border-emerald-200 rounded-2xl p-5 space-y-3 relative shadow-md";
+                        document.getElementById('result-after').className = "bg-emerald-50 border-3 border-emerald-200 rounded-2xl p-5 space-y-3 relative shadow-md";
                     }
 
                     appState.currentCalories = finalCalories;
@@ -534,7 +563,7 @@
                     <span>📅 오늘 [${timeStr}] 기록</span>
                     <span class="text-emerald-700 font-bold">기록됨 🐾</span>
                 </div>
-                <p class="text-xs text-stone-500 font-bold leading-tight">목표: ${appState.currentGoal}<br>에너지: ${appState.currentCalories} kcal | 잔반 분석 완료 🌿</p>
+                <p class="text-xs text-stone-500 font-bold leading-tight">목표: ${appState.currentGoal}<br>에너지: ${appState.currentCalories} kcal | 잔반 상태: 클린 제로 🌿</p>
             `;
             asideList.insertBefore(newItem, asideList.firstChild);
 
@@ -542,17 +571,14 @@
             navigate('page-main-menu');
         }
 
-        // ================= 운동 타이머 시스템 변수 및 기구 데이터 =================
+        // ================= 운동 기구 데이터 =================
         const equipmentData = {
-            'treadmill': { icon: '🏃‍♀️', name: '러닝머신', baseTime: 20, unit: '분 유산소', desc: '급식 먹고 칼로리를 가볍게 연소시키는 기초 트레드밀!', guide: '안전 벨트 집게를 옷에 끼우고 녹색 버튼을 눌러 속도 6.0으로 걷자!' },
-            'cycle': { icon: '🚴‍♀️', name: '실내자전거 (사이클)', baseTime: 15, unit: '분 하체집중', desc: '무릎 무리 없이 기초 하체 체력을 든든하게 확보!', guide: '안장 높이를 내 골반에 맞추고 강도 바퀴를 3에 둔 뒤 부드럽게 굴려줘!' },
-            'stepper': { icon: '🪜', name: '스텝퍼', baseTime: 10, unit: '분 힙업코스', desc: '학교 계단 오르는 느낌으로 예쁜 하체 뒤태 라인 잡기!', guide: '발바닥 전체를 패드에 딱 붙이고 엉덩이 근육 힘으로 끝까지 지긋이 밟아 내리기.' },
-            'dumbbell': { icon: '💪', name: '아령 (프리웨이트)', baseTime: 15, unit: '분 (3세트 권장)', desc: '교실 공부로 뻐근하게 말린 어깨와 등을 활짝 스트레칭!', guide: '체육관에서 1kg 미니 아령을 골라 만세 하듯 위로 올렸다 내리자.' },
-            'rowing': { icon: '🚣‍♀️', name: '로잉머신', baseTime: 10, unit: '분 칼로리폭탄', desc: '짧은 시간 안에 전신의 근력을 모두 깨우는 최고의 버닝 머신!', guide: '발을 단단히 묶고 다리로 밀어내고 이어서 손잡이를 명치로 당겨줘!' }
+            'treadmill': { name: '러닝머신', baseTime: 20, unit: '분 유산소', desc: '급식 먹고 칼로리를 가볍게 연소시키는 기초 트레드밀!', guide: '안전 벨트 집게를 옷에 끼우고 녹색 버튼을 눌러 속도 6.0으로 걷자!' },
+            'cycle': { name: '실내자전거 (사이클)', baseTime: 15, unit: '분 하체집중', desc: '무릎 무리 없이 기초 하체 체력을 든든하게 확보!', guide: '안장 높이를 내 골반에 맞추고 강도 바퀴를 3에 둔 뒤 부드럽게 굴려줘!' },
+            'stepper': { name: '스텝퍼', baseTime: 10, unit: '분 힙업코스', desc: '학교 계단 오르는 느낌으로 예쁜 하체 뒤태 라인 잡기!', guide: '발바닥 전체를 패드에 딱 붙이고 엉덩이 근육 힘으로 끝까지 지긋이 밟아 내리기.' },
+            'dumbbell': { name: '아령 (프리웨이트)', baseTime: 15, unit: '분 (3세트 권장)', desc: '교실 공부로 뻐근하게 말린 어깨와 등을 활짝 스트레칭!', guide: '체육관에서 1kg 미니 아령을 골라 만세 하듯 위로 올렸다 내리자.' },
+            'rowing': { name: '로잉머신', baseTime: 10, unit: '분 칼로리폭탄', desc: '짧은 시간 안에 전신의 근력을 모두 깨우는 최고의 버닝 머신!', guide: '발을 단단히 묶고 다리로 밀어내고 이어서 손잡이를 명치로 당겨줘!' }
         };
-
-        let timerIntervals = {};
-        let timerRemaining = {}; // 각 카드별 남은 시간(초)
 
         function goToExerciseFlow() {
             const contextBox = document.getElementById('exercise-context');
@@ -591,13 +617,6 @@
         function resetExerciseSelection() {
             document.getElementById('exercise-selection-area').classList.remove('hidden');
             document.getElementById('exercise-result-area').classList.add('hidden');
-            
-            // 기존 타이머들 초기화
-            for (let id in timerIntervals) {
-                clearInterval(timerIntervals[id]);
-            }
-            timerIntervals = {};
-            timerRemaining = {};
         }
 
         function generateRoutine() {
@@ -625,7 +644,7 @@
 
                 if (appState.hasMealData && appState.currentCalories > 550 && cb.value !== 'dumbbell') {
                     finalTime += 5;
-                    extraText = "🔥 오늘 섭취 에너지가 빵빵해서 +5분 특별 버닝 추가!";
+                    extraText = "🔥 오늘 섭취 에너지가 충분해서 +5분 특별 버닝 추가!";
                 }
 
                 const cardId = `exercise-card-${index}`;
@@ -642,19 +661,9 @@
                     <p class="text-sm text-stone-400 font-bold">${eq.desc}</p>
                     ${extraText ? `<p class="text-sm text-amber-600 font-black mt-1.5 p-1.5 bg-amber-50 rounded inline-block">💡 ${extraText}</p>` : ''}
                     
-                    <details class="text-sm bg-stone-50 p-2.5 rounded-xl mt-3 mb-3 font-bold">
-                        <summary class="cursor-pointer text-emerald-700 focus:outline-none">⚙️ 기구 설명서 팁 보기</summary>
-                        <p class="mt-1 text-stone-600 leading-relaxed font-bold">${eq.guide}</p>
-                    </details>
-
-                    <!-- 타이머 UI 컴포넌트 -->
-                    <div class="mt-2 p-3 bg-stone-100 rounded-xl flex items-center justify-between border-2 border-stone-200 shadow-inner">
-                        <span class="text-3xl font-black text-emerald-700 tracking-widest" id="timer-display-${index}">${finalTime}:00</span>
-                        <div class="flex space-x-2" id="timer-controls-${index}">
-                            <button onclick="startTimer(${index}, ${finalTime})" id="btn-start-${index}" class="px-4 py-2 bg-emerald-200 text-emerald-900 rounded-xl border-2 border-emerald-400 font-black hover:bg-emerald-300 transition shadow-sm">▶️ 시작</button>
-                            <button onclick="pauseTimer(${index})" id="btn-pause-${index}" class="hidden px-4 py-2 bg-amber-200 text-amber-900 rounded-xl border-2 border-amber-400 font-black hover:bg-amber-300 transition shadow-sm">⏸️ 정지</button>
-                            <button onclick="finishExercise(${index})" class="px-4 py-2 bg-stone-300 text-stone-700 rounded-xl border-2 border-stone-400 font-black hover:bg-stone-400 transition shadow-sm">✅ 완료</button>
-                        </div>
+                    <div class="mt-3 p-3 bg-stone-100 rounded-xl flex items-center justify-between border-2 border-stone-200 shadow-inner">
+                        <span class="text-xl font-black text-stone-500" id="status-text-${index}">대기 중 ⏳</span>
+                        <button onclick="openTimerPage(${index}, '${eq.name}', ${finalTime})" id="btn-start-${index}" class="px-5 py-2 bg-emerald-200 text-emerald-900 rounded-xl border-2 border-emerald-400 font-black hover:bg-emerald-300 transition shadow-sm">▶️ 타이머 시작</button>
                     </div>
                 `;
                 listContainer.appendChild(card);
@@ -664,56 +673,75 @@
             document.getElementById('exercise-result-area').classList.remove('hidden');
         }
 
-        // ================= 타이머 제어 함수 =================
+        // ================= 아날로그 타이머 화면 제어 =================
+        let activeTimerInterval = null;
+        let activeExerciseIndex = null;
+        let activeTotalSeconds = 0;
+        let activeRemainingSeconds = 0;
+
         function formatTime(seconds) {
             const m = Math.floor(seconds / 60).toString().padStart(2, '0');
             const s = (seconds % 60).toString().padStart(2, '0');
             return `${m}:${s}`;
         }
 
-        function startTimer(index, totalMinutes) {
-            // 처음 시작할 때만 전체 시간(초) 세팅
-            if (timerRemaining[index] === undefined) {
-                timerRemaining[index] = totalMinutes * 60;
-            }
-            
-            // 버튼 상태 토글
-            document.getElementById(`btn-start-${index}`).classList.add('hidden');
-            document.getElementById(`btn-pause-${index}`).classList.remove('hidden');
+        function openTimerPage(index, name, totalMinutes) {
+            activeExerciseIndex = index;
+            activeTotalSeconds = totalMinutes * 60;
+            activeRemainingSeconds = activeTotalSeconds;
 
-            // 1초마다 카운트다운
-            timerIntervals[index] = setInterval(() => {
-                if (timerRemaining[index] > 0) {
-                    timerRemaining[index]--;
-                    document.getElementById(`timer-display-${index}`).innerText = formatTime(timerRemaining[index]);
+            // 타이머 화면 정보 업데이트
+            document.getElementById('timer-title').innerText = `${index + 1}. ${name}`;
+            document.getElementById('timer-subtitle').innerText = `목표 시간: ${totalMinutes}분`;
+            document.getElementById('timer-digital').innerText = formatTime(activeRemainingSeconds);
+
+            updateClockHands(0); // 바늘 12시 초기화
+
+            navigate('page-timer');
+
+            // 1초 단위 타이머 시작
+            clearInterval(activeTimerInterval);
+            activeTimerInterval = setInterval(() => {
+                if (activeRemainingSeconds > 0) {
+                    activeRemainingSeconds--;
+                    document.getElementById('timer-digital').innerText = formatTime(activeRemainingSeconds);
+                    
+                    let elapsed = activeTotalSeconds - activeRemainingSeconds;
+                    updateClockHands(elapsed);
                 } else {
-                    // 타이머 종료 (0초)
-                    finishExercise(index);
+                    finishTimerPage();
                 }
             }, 1000);
         }
 
-        function pauseTimer(index) {
-            clearInterval(timerIntervals[index]);
-            document.getElementById(`btn-start-${index}`).classList.remove('hidden');
-            document.getElementById(`btn-pause-${index}`).classList.add('hidden');
+        function updateClockHands(elapsedSeconds) {
+            // 초침: 60초에 한 바퀴 (1초당 6도)
+            const secAngle = (elapsedSeconds % 60) * 6;
+            // 분침: 60분에 한 바퀴 (1분당 6도, 초당 0.1도)
+            const minAngle = (elapsedSeconds / 60) * 6;
+
+            document.getElementById('hand-second').style.transform = `rotate(${secAngle}deg)`;
+            document.getElementById('hand-minute').style.transform = `rotate(${minAngle}deg)`;
         }
 
-        function finishExercise(index) {
-            clearInterval(timerIntervals[index]);
+        function finishTimerPage() {
+            clearInterval(activeTimerInterval);
             
-            const display = document.getElementById(`timer-display-${index}`);
-            display.innerText = "미션 성공! 🎉";
-            display.classList.replace('text-emerald-700', 'text-amber-600');
+            // 기존 카드 상태 '성공'으로 업데이트
+            const card = document.getElementById(`exercise-card-${activeExerciseIndex}`);
+            const statusText = document.getElementById(`status-text-${activeExerciseIndex}`);
+            const startBtn = document.getElementById(`btn-start-${activeExerciseIndex}`);
 
-            // 버튼 숨기기
-            document.getElementById(`timer-controls-${index}`).classList.add('hidden');
-            
-            // 카드 전체를 연하게 처리 (완료된 느낌)
-            const card = document.getElementById(`exercise-card-${index}`);
+            // 카드 디자인 흐리게(완료 처리)
             card.classList.add('opacity-60', 'bg-stone-50');
             card.classList.remove('border-stone-200');
             card.classList.add('border-emerald-300', 'border-dashed');
+            
+            statusText.innerText = "미션 성공! 🎉";
+            statusText.classList.replace('text-stone-500', 'text-amber-600');
+            startBtn.classList.add('hidden');
+
+            navigate('page-exercise');
         }
     </script>
 </body>
